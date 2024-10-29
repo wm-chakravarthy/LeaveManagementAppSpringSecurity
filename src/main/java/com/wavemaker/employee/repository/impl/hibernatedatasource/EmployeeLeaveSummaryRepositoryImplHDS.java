@@ -5,6 +5,7 @@ import com.wavemaker.employee.exception.ServerUnavailableException;
 import com.wavemaker.employee.pojo.Employee;
 import com.wavemaker.employee.pojo.EmployeeLeaveSummary;
 import com.wavemaker.employee.repository.EmployeeLeaveSummaryRepository;
+import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;

@@ -17,6 +17,7 @@ import java.util.List;
 public class LeaveTypeRepositoryImplInHDS implements LeaveTypeRepository {
 
     private static final String GET_ALL_LEAVE_TYPES_QUERY = "FROM LeaveType lt WHERE lt.applicableForGender = 'BOTH' OR lt.applicableForGender = :gender";
+
     @Autowired
     private HibernateTemplate hibernateTemplate;
 

@@ -11,12 +11,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class EmployeePasswordRepositoryImpl implements EmployeePasswordRepository {
     private static final String GET_USER_BY_EMAIL_ID = "FROM EmployeePassword WHERE email = :email";
+
     @Autowired
     private HibernateTemplate hibernateTemplate;
 
-    @Override
     @Transactional
     public EmployeePassword findByEmailId(String email) {
+        System.out.printf("HibernateTemplate is " + hibernateTemplate);
         return hibernateTemplate.execute(session -> {
             Query<EmployeePassword> query = session.createQuery(GET_USER_BY_EMAIL_ID, EmployeePassword.class);
             query.setParameter("email", email);

@@ -2,8 +2,11 @@ package com.wavemaker.employee.controller;
 
 import com.wavemaker.employee.exception.ServerUnavailableException;
 import com.wavemaker.employee.pojo.EmployeeLeaveSummary;
+import com.wavemaker.employee.pojo.EmployeePassword;
 import com.wavemaker.employee.pojo.UserEntity;
+import com.wavemaker.employee.repository.EmployeePasswordRepository;
 import com.wavemaker.employee.service.EmployeeLeaveSummaryService;
+import com.wavemaker.employee.util.UserSessionHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -28,25 +31,42 @@ public class EmployeeLeaveSummaryController {
     @Autowired
     private EmployeeLeaveSummaryService employeeLeaveSummaryService;
 
+    @Autowired
+    private EmployeePasswordRepository employeePasswordRepository;
+
 
     @GetMapping
     public List<EmployeeLeaveSummary> getLoggedInEmployeeLeaveSummaries(HttpServletRequest request, HttpServletResponse response) {
         UserEntity userEntity = null;
         List<EmployeeLeaveSummary> employeeLeaveSummaryList = null;
         try {
-            SecurityContext context = SecurityContextHolder.getContext();
-            Authentication authentication = context.getAuthentication();
-            if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-                userEntity = (UserEntity) userDetails;
-            }
+            userEntity = handleUserSessionAndReturnUserEntity(request, response, logger);
+
             logger.info("Fetching leave summary for employee : {}", userEntity);
-            employeeLeaveSummaryList = employeeLeaveSummaryService.getEmployeeLeaveSummariesById(3);
+            employeeLeaveSummaryList = employeeLeaveSummaryService.getEmployeeLeaveSummariesById(userEntity.getEmpId());
         } catch (ServerUnavailableException e) {
             logger.error("Error fetching Leave details for user ID: {}", userEntity != null ? userEntity.getUserId() : "Unknown", e);
         } catch (Exception e) {
             logger.error("Server error occurred while processing GET request", e);
         }
         return employeeLeaveSummaryList;
+    }
+
+    private   UserEntity handleUserSessionAndReturnUserEntity(HttpServletRequest request, HttpServletResponse response, Logger logger) {
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            UserEntity userEntity = new UserEntity();
+            EmployeePassword employeePassword = employeePasswordRepository.findByEmailId(userDetails.getUsername());
+            if (employeePassword != null) {
+                userEntity.setEmail(employeePassword.getEmail());
+                userEntity.setEmpId(employeePassword.getEmpId());
+                userEntity.setPassword(employeePassword.getPassword());
+                userEntity.setUserId(employeePassword.getEmployeePasswordId());
+            }
+            return userEntity;
+        }
+        return null;
     }
 }

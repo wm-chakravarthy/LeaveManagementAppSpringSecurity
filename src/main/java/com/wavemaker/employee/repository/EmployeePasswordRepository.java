@@ -1,9 +1,8 @@
 package com.wavemaker.employee.repository;
 
 import com.wavemaker.employee.pojo.EmployeePassword;
-import org.springframework.stereotype.Repository;
 
-@Repository
+//@Repository("employeePasswordRepository")
 public interface EmployeePasswordRepository {
     EmployeePassword findByEmailId(String email);
 }

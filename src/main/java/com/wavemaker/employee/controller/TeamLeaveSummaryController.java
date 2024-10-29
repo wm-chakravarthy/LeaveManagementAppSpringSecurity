@@ -2,7 +2,9 @@ package com.wavemaker.employee.controller;
 
 import com.wavemaker.employee.pojo.Employee;
 import com.wavemaker.employee.pojo.EmployeeLeaveSummary;
+import com.wavemaker.employee.pojo.EmployeePassword;
 import com.wavemaker.employee.pojo.UserEntity;
+import com.wavemaker.employee.repository.EmployeePasswordRepository;
 import com.wavemaker.employee.service.EmployeeLeaveSummaryService;
 import com.wavemaker.employee.util.UserSessionHandler;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,6 +12,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +33,9 @@ public class TeamLeaveSummaryController {
     @Autowired
     private EmployeeLeaveSummaryService employeeLeaveSummaryService;
 
+    @Autowired
+    private EmployeePasswordRepository employeePasswordRepository;
+
     @GetMapping
     public List<EmployeeLeaveSummary> getMyTeamLeaveSummariesById(
             @RequestParam(value = "empId", required = false) String empId,
@@ -35,7 +44,7 @@ public class TeamLeaveSummaryController {
         List<EmployeeLeaveSummary> employeeLeaveSummaryList = null;
         UserEntity userEntity = null;
 
-        userEntity = UserSessionHandler.handleUserSessionAndReturnUserEntity(request, response, logger);
+        userEntity = handleUserSessionAndReturnUserEntity(request, response, logger);
         logger.info("Fetching leave summary for employee ID: {}", empId);
         employeeLeaveSummaryList = employeeLeaveSummaryService.getEmployeeLeaveSummariesById(Integer.parseInt(empId));
         logger.info("Leave summary fetched: {}", employeeLeaveSummaryList);
@@ -47,10 +56,27 @@ public class TeamLeaveSummaryController {
         Map<Employee, List<EmployeeLeaveSummary>> leaveSummaryMap = null;
         UserEntity userEntity = null;
 
-        userEntity = UserSessionHandler.handleUserSessionAndReturnUserEntity(request, response, logger);
+        userEntity = handleUserSessionAndReturnUserEntity(request, response, logger);
         logger.info("Fetching leave summary for employee : {}", userEntity);
         leaveSummaryMap = employeeLeaveSummaryService.getMyTeamEmployeeLeaveSummaries(userEntity.getEmpId());
         logger.info("Leave summary fetched: {}", leaveSummaryMap);
         return leaveSummaryMap;
+    }
+    private   UserEntity handleUserSessionAndReturnUserEntity(HttpServletRequest request, HttpServletResponse response, Logger logger) {
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            UserEntity userEntity = new UserEntity();
+            EmployeePassword employeePassword = employeePasswordRepository.findByEmailId(userDetails.getUsername());
+            if (employeePassword != null) {
+                userEntity.setEmail(employeePassword.getEmail());
+                userEntity.setEmpId(employeePassword.getEmpId());
+                userEntity.setPassword(employeePassword.getPassword());
+                userEntity.setUserId(employeePassword.getEmployeePasswordId());
+            }
+            return userEntity;
+        }
+        return null;
     }
 }
