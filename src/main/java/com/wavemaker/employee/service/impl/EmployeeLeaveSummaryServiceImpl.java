@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional
+@Transactional(Transactional.TxType.REQUIRED)
 public class EmployeeLeaveSummaryServiceImpl implements EmployeeLeaveSummaryService {
 
     @Autowired

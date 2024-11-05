@@ -1,164 +1,180 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.wavemaker</groupId>
-  <artifactId>employee</artifactId>
-  <packaging>war</packaging>
-  <version>1.0.0</version>
-  <name>LeaveManagementApp</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.wavemaker</groupId>
+    <artifactId>employee</artifactId>
+    <packaging>war</packaging>
+    <version>1.0.0</version>
+    <name>LeaveManagementApp</name>
+    <url>http://maven.apache.org</url>
 
-<!--      <dependency>-->
-<!--          <groupId>org.springframework.data</groupId>-->
-<!--          <artifactId>spring-data-jpa</artifactId>-->
-<!--          <version>3.3.5</version>-->
-<!--      </dependency>-->
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+    </properties>
 
-      <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-saml2-service-provider -->
-      <dependency>
-          <groupId>org.springframework.security</groupId>
-          <artifactId>spring-security-saml2-service-provider</artifactId>
-          <version>5.8.1</version>
-      </dependency>
+    <dependencies>
 
-      <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
-      <dependency>
-          <groupId>org.springframework.security</groupId>
-          <artifactId>spring-security-config</artifactId>
-          <version>6.3.4</version>
-      </dependency>
+        <!--      <dependency>-->
+        <!--          <groupId>org.springframework.data</groupId>-->
+        <!--          <artifactId>spring-data-jpa</artifactId>-->
+        <!--          <version>3.3.5</version>-->
+        <!--      </dependency>-->
 
-      <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
-      <dependency>
-          <groupId>org.springframework.security</groupId>
-          <artifactId>spring-security-web</artifactId>
-          <version>6.3.4</version>
-      </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-saml2-service-provider -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-saml2-service-provider</artifactId>
+            <version>5.8.1</version>
+        </dependency>
 
-      <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
-      <dependency>
-          <groupId>jakarta.servlet</groupId>
-          <artifactId>jakarta.servlet-api</artifactId>
-          <version>6.1.0</version>
-          <scope>provided</scope>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-      <dependency>
-          <groupId>com.google.code.gson</groupId>
-          <artifactId>gson</artifactId>
-          <version>2.11.0</version>
-      </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>6.3.4</version>
+        </dependency>
 
-      <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
-      <dependency>
-          <groupId>com.zaxxer</groupId>
-          <artifactId>HikariCP</artifactId>
-          <version>6.0.0</version>
-      </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>6.3.4</version>
+        </dependency>
 
-      <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-core</artifactId>
-          <version>6.1.13</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-      <dependency>
-          <groupId>mysql</groupId>
-          <artifactId>mysql-connector-java</artifactId>
-          <version>8.0.33</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-context</artifactId>
-          <version>6.1.13</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-webmvc</artifactId>
-          <version>6.1.14</version>
-      </dependency>
+        <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.11.0</version>
+        </dependency>
 
-      <!--log dependencies -->
-      <!-- SLF4j API for logging abstraction -->
-      <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-      <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-          <version>1.7.36</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j -->
-      <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>jcl-over-slf4j</artifactId>
-          <version>1.7.36</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-      <dependency>
-          <groupId>org.apache.logging.log4j</groupId>
-          <artifactId>log4j-core</artifactId>
-          <version>2.23.0</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
-      <dependency>
-          <groupId>org.apache.logging.log4j</groupId>
-          <artifactId>log4j-slf4j-impl</artifactId>
-          <version>2.23.0</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
-      <dependency>
-          <groupId>org.apache.logging.log4j</groupId>
-          <artifactId>log4j-api</artifactId>
-          <version>2.23.0</version>
-      </dependency>
+        <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>6.0.0</version>
+        </dependency>
 
-      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-      <dependency>
-          <groupId>com.fasterxml.jackson.core</groupId>
-          <artifactId>jackson-databind</artifactId>
-          <version>2.18.0</version>
-      </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>6.1.13</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.1.13</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>6.1.14</version>
+        </dependency>
 
-      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
-      <dependency>
-          <groupId>com.fasterxml.jackson.core</groupId>
-          <artifactId>jackson-core</artifactId>
-          <version>2.18.0</version>
-      </dependency>
+        <!--log dependencies -->
+        <!-- SLF4j API for logging abstraction -->
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.23.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.23.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.23.0</version>
+        </dependency>
 
-      <dependency>
-          <groupId>com.fasterxml.jackson.core</groupId>
-          <artifactId>jackson-annotations</artifactId>
-          <version>2.18.0</version>
-      </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.18.0</version>
+        </dependency>
 
-      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson/jackson-bom -->
-      <dependency>
-          <groupId>com.fasterxml.jackson</groupId>
-          <artifactId>jackson-bom</artifactId>
-          <version>2.18.0</version>
-          <type>pom</type>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core-jakarta -->
-      <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-core-jakarta</artifactId>
-          <version>5.6.15.Final</version>
-      </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.18.0</version>
+        </dependency>
 
-      <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.18.0</version>
+        </dependency>
 
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-orm</artifactId>
-          <version>6.1.14</version>
-      </dependency>
-      <!--log dependencies end -->
-  </dependencies>
-  <build>
-    <finalName>LeaveManagementAppSpring</finalName><plugins><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><configuration><source>8</source><target>8</target></configuration></plugin></plugins>
-  </build>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson/jackson-bom -->
+        <dependency>
+            <groupId>com.fasterxml.jackson</groupId>
+            <artifactId>jackson-bom</artifactId>
+            <version>2.18.0</version>
+            <type>pom</type>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core-jakarta -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core-jakarta</artifactId>
+            <version>5.6.15.Final</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>6.1.14</version>
+        </dependency>
+        <!--log dependencies end -->
+    </dependencies>
+    <build>
+        <finalName>LeaveManagementAppSpring</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
